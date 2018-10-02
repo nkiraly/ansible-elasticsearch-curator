@@ -33,10 +33,13 @@
 - name: Create elasticsearch-curator actions config file
   template:
     src:   actions.yml.j2
-    dest:  "{{ elasticsearch_curator_conf_dir }}/actions.yml"
+    dest:  "{{ elasticsearch_curator_conf_dir }}/{{ elasticsearch_curator_action_set_item.key }}.yml"
     owner: root
     group: root
     mode:  0644
+  with_dict: "{{ elasticsearch_curator_action_sets }}"
+  loop_control:
+    loop_var: elasticsearch_curator_action_set_item
 
 - name: Create cron jobs for elasticsearch-curator
   cron:

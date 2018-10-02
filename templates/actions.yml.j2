@@ -1,5 +1,5 @@
 actions:
-{% for obj in elasticsearch_curator_actions  %}
+{% for obj in elasticsearch_curator_action_set_item.value  %}
   {{ loop.index }}:
 {% for key,value in obj|dictsort %}
 

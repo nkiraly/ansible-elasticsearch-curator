@@ -16,29 +16,30 @@ https://www.elastic.co/guide/en/elasticsearch/client/curator/5.5/examples.html
     elasticsearch_curator_version: 5.5.4
     elasticsearch_curator_client_hosts: localhost
     elasticsearch_curator_client_master_only: True    # if you want to curator to run ONLY on master
-    elasticsearch_curator_actions:
-      - action: delete_indices
-        description: >-
-          Delete indices older than 45 days (based on index name), for logstash-
-          prefixed indices. Ignore the error if the filter does not result in an
-          actionable list of indices (ignore_empty_list) and exit cleanly.
-        options:
-          ignore_empty_list: True
-          timeout_override:
-          continue_if_exception: False
-          disable_action: False
-        filters:
-          - filtertype: pattern
-            kind: prefix
-            value: logstash-
-            exclude:
-          - filtertype: age
-            source: name
-            direction: older
-            timestring: "'%Y.%m.%d'"
-            unit: days
-            unit_count: 45
-            exclude:
+    elasticsearch_curator_action_sets:
+      'actions':
+        - action: delete_indices
+          description: >-
+            Delete indices older than 45 days (based on index name), for logstash-
+            prefixed indices. Ignore the error if the filter does not result in an
+            actionable list of indices (ignore_empty_list) and exit cleanly.
+          options:
+            ignore_empty_list: True
+            timeout_override:
+            continue_if_exception: False
+            disable_action: False
+          filters:
+            - filtertype: pattern
+              kind: prefix
+              value: logstash-
+              exclude:
+            - filtertype: age
+              source: name
+              direction: older
+              timestring: "'%Y.%m.%d'"
+              unit: days
+              unit_count: 45
+              exclude:
     elasticsearch_curator_cron_jobs:
       - description: "Curate Elasticsearch Indices once per week"
         minute:  0

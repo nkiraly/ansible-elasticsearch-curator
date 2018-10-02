@@ -25,7 +25,8 @@ elasticsearch_curator_logging_logformat: default
 elasticsearch_curator_logging_blacklist: ['elasticsearch', 'urllib3']
 
 elasticsearch_curator_actions:  []
-elasticsearch_curator_cron_job: {}
+elasticsearch_curator_cron_jobs: []
+elasticsearch_curator_cron_job_command: "/usr/local/bin/curator --config {{ elasticsearch_curator_conf_dir }}/curator.yml {{ elasticsearch_curator_conf_dir }}/actions.yml"
 
 ##elasticsearch_curator_actions:
 ##  - action: delete_indices
@@ -52,12 +53,11 @@ elasticsearch_curator_cron_job: {}
 ##        exclude:
 
 
-#elasticsearch_curator_cron_job:
-#  description: "Curate Elasticsearch Indices once per week"
-#  minute:  0
-#  hour:    0
-#  weekday: 6
-#  month:   '*'
-#  user:    root
-
-elasticsearch_curator_cron_job_command: "/usr/local/bin/curator --config {{ elasticsearch_curator_conf_dir }}/curator.yml {{ elasticsearch_curator_conf_dir }}/actions.yml"
+#elasticsearch_curator_cron_jobs:
+#  - description: "Curate Elasticsearch Indices once per week"
+#    minute:  0
+#    hour:    0
+#    weekday: 6
+#    month:   '*'
+#    user:    root
+#    command: "/usr/local/bin/curator --config {{ elasticsearch_curator_conf_dir }}/curator.yml {{ elasticsearch_curator_conf_dir }}/actions.yml"

@@ -39,13 +39,13 @@ https://www.elastic.co/guide/en/elasticsearch/client/curator/5.5/examples.html
             unit: days
             unit_count: 45
             exclude:
-    elasticsearch_curator_cron_job:
-      description: "Curate Elasticsearch Indices once per week"
-      minute:  0
-      hour:    0
-      day:     '*'
-      weekday: 6
-      month:   '*'
+    elasticsearch_curator_cron_jobs:
+      - description: "Curate Elasticsearch Indices once per week"
+        minute:  0
+        hour:    0
+        day:     '*'
+        weekday: 6
+        month:   '*'
 
   roles:
     - wunzeco.elasticsearch_curator

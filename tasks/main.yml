@@ -38,16 +38,17 @@
     group: root
     mode:  0644
 
-# Cron jobs
-- name: Create cron job for elasticsearch-curator
+- name: Create cron jobs for elasticsearch-curator
   cron:
-    name:    "{{ elasticsearch_curator_cron_job.description|default('Curate Elasticsearch Indices') }}"
-    minute:  "{{ elasticsearch_curator_cron_job.minute|default('*') }}"
-    hour:    "{{ elasticsearch_curator_cron_job.hour|default('*') }}"
-    day:     "{{ elasticsearch_curator_cron_job.day|default('*') }}"
-    weekday: "{{ elasticsearch_curator_cron_job.weekday|default('*') }}"
-    month:   "{{ elasticsearch_curator_cron_job.month|default('*') }}"
-    user:    "{{ elasticsearch_curator_cron_job.user|default('root') }}"
-    job:     "{{ elasticsearch_curator_cron_job_command }}"
+    name:    "{{ elasticsearch_curator_cron_job_item.description|default('Curate Elasticsearch Indices') }}"
+    minute:  "{{ elasticsearch_curator_cron_job_item.minute|default('*') }}"
+    hour:    "{{ elasticsearch_curator_cron_job_item.hour|default('*') }}"
+    day:     "{{ elasticsearch_curator_cron_job_item.day|default('*') }}"
+    weekday: "{{ elasticsearch_curator_cron_job_item.weekday|default('*') }}"
+    month:   "{{ elasticsearch_curator_cron_job_item.month|default('*') }}"
+    user:    "{{ elasticsearch_curator_cron_job_item.user|default('root') }}"
+    job:     "{{ elasticsearch_curator_cron_job_item.command|default(elasticsearch_curator_cron_job_command) }}"
     cron_file: elasticsearch-curator
-  when: elasticsearch_curator_cron_job
+  with_items: "{{ elasticsearch_curator_cron_jobs }}"
+  loop_control:
+    loop_var: elasticsearch_curator_cron_job_item

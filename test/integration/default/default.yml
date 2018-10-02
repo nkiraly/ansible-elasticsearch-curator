@@ -126,13 +126,13 @@
             unit: days
             unit_count: 14
             exclude:
-    elasticsearch_curator_cron_job:
-      description: "Curate Elasticsearch Indices once per week"
-      minute:  0
-      hour:    0
-      day:     '*'
-      weekday: 6
-      month:   '*'
+    elasticsearch_curator_cron_jobs:
+      - description: "Curate Elasticsearch Indices once per week"
+        minute:  0
+        hour:    0
+        day:     '*'
+        weekday: 6
+        month:   '*'
 
 
   roles:
